@@ -6,10 +6,13 @@ from weasyprint import CSS, HTML
 
 
 def lambda_handler(event, context):
+    # Get filename
     filename = event["filename"]
     basename = os.path.basename(filename)
     tmpfile = f"/tmp/{basename}"
     ext = os.path.splitext(basename)[1]
+
+    # Get Export type PDF/png
     if ext == ".pdf":
         content_type = "application/pdf"
         method = "write_pdf"
@@ -18,13 +21,17 @@ def lambda_handler(event, context):
         method = "write_png"
     else:
         raise ValueError("File extension {ext} is not supported.")
+
+    # Get URL/ HTML string and generate tmpfile.pdf
     if "url" in event:
         getattr(HTML(url=event["url"]), method)(target=tmpfile)
     else:
-        getattr(HTML(string=event["html"]), method)(
+        getattr(HTML(string=event["html"],
+                     base_url=event["base_url"] if "base_url" in event else None), method)(
             target=tmpfile,
             stylesheets=[CSS(string=event["css"])] if "css" in event else None,
         )
+
     if event.get("return") == "base64":
         with open(tmpfile, "rb") as f:
             data = f.read()
