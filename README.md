@@ -41,4 +41,5 @@ see related [readme](wkhtmltox/README.md).
 - ensure all project files are 'LF' line endings 
     - in Pycharm select main project folder > File > File Properties > Line Separators > LF
 - open WSL bash command prompt
+- navigate to: cd /mnt/[your_drive e.g c]/[this_project_folder]/
 - run `make build/weasyprint-layer-python3.8.zip`
