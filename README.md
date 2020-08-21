@@ -33,3 +33,12 @@ into PDF and various image formats using the Qt WebKit rendering engine.
 
 Run `make build/wkhtmltox-layer.zip` to build a layer, for details
 see related [readme](wkhtmltox/README.md).
+
+## Instructions for Windows
+
+- install Docker for windows
+- install WSL2 0 Windows Subsystem for Linux
+- ensure all project files are 'LF' line endings 
+    - in Pycharm select main project folder > File > File Properties > Line Separators > LF
+- open WSL bash command prompt
+- run `make build/weasyprint-layer-python3.8.zip`
